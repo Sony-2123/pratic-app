@@ -64,21 +64,16 @@ import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import Login from './components/Login';
 import Signup from './components/Signup';
-
+import EmployeeTable from './components/employee'; // Uncomment if you want to use the EmployeeTable component
+import IPLTeams from './iplteam';
+import RenderingMap from './renderingmap';
 const App = () => {
   return (
-    <div style={{ textAlign: 'center', padding: '20px' }}>
-      
-      <nav>
-        <Link to="/login" style={{ margin: '10px' }}>Login</Link>
-        <Link to="/signup" style={{ margin: '10px' }}>Signup</Link>
-      </nav>
-
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-      </Routes>
-    </div>
+<div>
+  <EmployeeTable />
+<IPLTeams/>
+<RenderingMap/>
+</div>
   );
 };
 
