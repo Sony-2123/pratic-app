@@ -1,36 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const { login } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleChange = e => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Logging in with\nEmail: ${form.email}\nPassword: ${form.password}`);
+    const success = login(email, password);
+    if (success) navigate("/dashboard");
+    else alert("Invalid credentials!");
   };
 
   return (
-    <form onSubmit={handleSubmit} style={formStyle}>
+    <form onSubmit={handleSubmit}>
       <h2>Login</h2>
-      <input name="email" placeholder="Email" onChange={handleChange} required />
-      <input name="password" placeholder="Password" type="password" onChange={handleChange} required />
+      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required /><br/>
+      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required /><br/>
       <button type="submit">Login</button>
     </form>
   );
-};
-
-const formStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  maxWidth: '300px',
-  margin: 'auto',
-  gap: '10px',
-  padding: '20px',
-  border: '1px solid #ccc',
-  borderRadius: '8px'
 };
 
 export default Login;

@@ -222,34 +222,204 @@
 
 
 
-// src/App.js
-import React from 'react';
-import FunctionalStateExample from './Tasks/FunctionalStateExample';
-import ClassStateExample from './Tasks/ClassStateExample';
-import AddCircle from "./components/AddCircle";
-import ImageCarousel from './components/Carousel';
-import ProductListing from './components/ProductList';
-import SkeletonLoader from "./components/SkeletonLoader";
-import ProductWithSpinner from "./components/ProductWithSpinner";
-import './App.css';
+// // src/App.js
+// import React from 'react';
+// import FunctionalStateExample from './Tasks/FunctionalStateExample';
+// import ClassStateExample from './Tasks/ClassStateExample';
+// import AddCircle from "./components/AddCircle";
+// import ImageCarousel from './components/Carousel';
+// import ProductListing from './components/ProductList';
+// import SkeletonLoader from "./components/SkeletonLoader";
+// import ProductWithSpinner from "./components/ProductWithSpinner";
+// import './App.css';
 
 
 
-function App() {
+// function App() {
+//   return (
+//     <div>
+//       <h1>React State Examples</h1>
+//       <FunctionalStateExample />
+//       <ClassStateExample />
+//       <AddCircle/>
+//       <ImageCarousel /> 
+//       <ProductListing />
+//       <SkeletonLoader />
+//       <ProductWithSpinner />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+// import React from 'react';
+// import UserList from './components/UserList';
+
+// function App() {
+//   return (
+//     <div className="App">
+//       <h1>Axios in React Example</h1>
+//       <UserList />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+// import React from "react";
+// import ErrorBoundary from "./components/ErrorBoundary";
+// import BuggyComponent from "./components/BuggyComponent";
+
+// function App() {
+//   return (
+//     <div style={{ padding: "20px" }}>
+//       <h1>React Error Handling Example</h1>
+
+//       <ErrorBoundary>
+//         <BuggyComponent />
+//       </ErrorBoundary>
+
+//       <p>This line will still render even if the component fails above.</p>
+//     </div>
+//   );
+// }
+
+
+// import React, { useState, useEffect } from 'react';
+// import Spinner from './components/Spinner/Spinner';
+
+// const App = () => {
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     // Simulate loading time
+//     const timer = setTimeout(() => setLoading(false), 3000);
+//     return () => clearTimeout(timer);
+//   }, []);
+
+//   return (
+//     <>
+//       {loading ? (
+//         <Spinner />
+//       ) : (
+//         <div style={{ textAlign: 'center', marginTop: '100px' }}>
+//           <h1>Welcome to the App!</h1>
+//             <h1>Welcome to the App!</h1>
+//               <h1>Welcome to the App!</h1>
+//                 <h1>Welcome to the App!</h1>
+//                   <h1>Welcome to the App!</h1>
+//             <h1>Welcome to the App!</h1>
+//         </div>
+//       )}
+//     </>
+//   );
+// };
+
+// export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import Button from './components/button'; 
+
+// function App() {
+//   const handleClick = () => {
+//     alert('Button clicked!');
+//   };
+
+//   return (
+//     <div>
+//       <h1>Welcome to the App</h1>
+//       <Button label="Click Me" onClick={handleClick} className="my-button" />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+
+// import React from 'react';
+// import LifecycleDemo from './components/LifecycleDemo';
+
+// function App() {
+//   return (
+//     <div className="App">
+//       <LifecycleDemo />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+// 
+
+
+
+
+// // src/App.jsx
+// import LoginForm from "./components/organisms/LoginForm";
+
+// function App() {
+//   return <LoginForm/>
+// }
+
+// export default App;
+
+
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AuthProvider from "./context/AuthContext";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+import AdminPanel from "./components/AdminPanel";
+import Navbar from "./components/Navbar";
+import PrivateRoute from "./components/PrivateRoute";
+
+const App = () => {
   return (
-    <div>
-      <h1>React State Examples</h1>
-      <FunctionalStateExample />
-      <ClassStateExample />
-      <AddCircle/>
-      <ImageCarousel /> 
-      <ProductListing />
-      <SkeletonLoader />
-      <ProductWithSpinner />
-    </div>
+    <AuthProvider>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <PrivateRoute role="admin">
+                <AdminPanel />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
-}
+};
 
 export default App;
-
-
